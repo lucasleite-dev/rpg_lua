@@ -1,0 +1,8 @@
+.vscode
+.idea
+__pycache__
+pygame
+selecionar_personagem
+personagens
+*.db
+rpg-py-lua
