@@ -1,7 +1,7 @@
 -- coding: utf-8
-local personagem = require("Classes/jogador")
-local Inimigo = require("Classes/inimigo")
-
+local jogador = require("Classes/jogador")
+local inimigo = require("Classes/inimigo")
+--local personagem
 -- Funções
 local clock = os.clock
 
@@ -25,11 +25,11 @@ function limparTela()
 
 end
 
-game = true
+game = 1
 
 -- Tela inicial
 print("+----------------------------------+")
-print("|             RPG-PY               |")
+print("|       Dungeons of Ragnarok       |")
 print("^----------------//----------------^")
 print("+----------------------------------+")
 print("|         Pressione Enter          |")
@@ -37,7 +37,7 @@ print("^----------------//----------------^")
 io.read()
 limparTela()
 
-while game == true do
+while game == 1 do
     print("+----------------------------------+")
     print("|               Menu               |")
     print("V----------------------------------V")
@@ -52,11 +52,12 @@ while game == true do
 	if escolhaMenu == "1" then
 		print("+----------------------------------+")
         print("|        Criar de Personagem       |")
-        print("V----------------------------------V")
-		io.write("Nome: ")
-		local jogador = personagem_novo(io.read(), vida, vida_max, mana, mana_max, ataque, defesa, status)
+		print("V----------------------------------V")
+		print("1 - Espadachim | 2 - Mago | 3 - Arqueiro | 4 - Tanker")
+		print("Digite o nome e depois a classe.")
+		local Player = jogador:new(io.read(), io.read())
 		print("Criado com sucesso.")
-		print("Nome: " .. jogador.nome)
-
+		print("Nome: " .. jogador.nome .. "\nClasse: " .. jogador.classe)
+		io.read()
 	end
 end
