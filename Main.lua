@@ -1,6 +1,11 @@
 -- coding: utf-8
-local jogador = require("Classes/jogador")
-local inimigo = require("Classes/inimigo")
+-- Importações
+local espadachim = require("Classes/Espadachim")
+local mago = require("Classes/Mago")
+local arqueiro = require("Classes/Arqueiro")
+local tanker = require("Classes/Tanker")
+local inimigo = require("Classes/Inimigo")
+require("luasql.sqlite3")
 --local personagem
 -- Funções
 local clock = os.clock
@@ -24,8 +29,10 @@ end
 function limparTela()
 	os.execute("cls" or "clear")
 end
-
-game = 1
+-- Criação de DataBase
+env = luasql.sqlite3()
+con = env:connect("personagens.db")
+con:execute([[CREATE TABLE IF NOT EXISTS personagens (nome string, level string,exp string,exp_max string,vida string,vida_max string,mana string,mana_max string,ataque string,defesa string,status string,classe string)]])
 
 -- Tela inicial
 print("+----------------------------------+")
@@ -37,7 +44,7 @@ print("^----------------//----------------^")
 io.read()
 limparTela()
 
-while game == 1 do
+while true do
     print("+----------------------------------+")
     print("|               Menu               |")
     print("V----------------------------------V")
@@ -125,7 +132,9 @@ while game == 1 do
 		end
 		
 		print("Criado com sucesso.")
+		con:execute(string.format("INSERT INTO personagens (nome, level, exp, exp_max, vida, vida_max ,mana, mana_max, ataque, defesa, status, classe) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)", jogador.nome, jogador.level, jogador.exp, jogador.exp_max, jogador.vida, jogador.vida_max, jogador.mana, jogador.mana_max, jogador.ataque, jogador.defesa, jogador.status, jogador.classe))
 
+		con:commit()
 	end
 end
 

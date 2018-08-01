@@ -1,26 +1,25 @@
 -- coding: utf-8
-local jogador = {
+local mago = {
     vida = 300,
     vida_max = 300,
     mana_max = 150,
     mana = 150,
     ataque = 150,
     defesa = 150,
+    classe = "Mago",
     status = "Vivo"
 }
 
 --jogador:new = function(n, c)
-function jogador:new(n, c)
+function mago:new(n)
   local tab = {};
-  tab.__index = {nome = n, classe = c};
+  tab.__index = {nome = n};
   
-  return setmetatable(jogador, tab);
+  return setmetatable(espadachim, tab);
 end
 
---local Player= jogador.new(io.read(), io.read());
-
 -- Quando o personagem é atacado
-function jogador:levaDano(dano)
+function mago:levaDano(dano)
     -- Calculo do dano que o personagem vai receber do inimigo
     self.vida = math.floor(self.vida - (dano / (1 + self.defesa / 100)))
     if self.vida <= 0 then
@@ -30,4 +29,4 @@ function jogador:levaDano(dano)
 
 end
 
-return jogador
+return mago
